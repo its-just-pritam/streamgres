@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  datastore:
+    image: timescale/timescaledb:latest-pg14
+    container_name: datastore
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: streamlite_metadata
+    volumes:
+      - tsdb_data:/var/lib/postgresql/data
+      - ./timescaledb/initdb:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d streamlite_metadata"]
+      interval: 10s
+      retries: 10
+
+  datastore_ui:
+    image: sosedoff/pgweb
+    container_name: pgweb
+    environment:
+      - PGWEB_DATABASE_URL=postgres://postgres:password@datastore:5432/streamlite_metadata?sslmode=disable
+    ports:
+      - "8081:8081"
+    depends_on:
+      datastore:
+        condition: service_healthy
+
+volumes:
+   tsdb_data:

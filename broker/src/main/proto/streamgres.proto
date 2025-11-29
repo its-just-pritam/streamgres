@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "com.streamlite.broker.grpc";
+option java_outer_classname = "ConsumerStreamingProto";
+
+service ConsumerStreamingService {
+
+  rpc join(RpcConsumerMetadata) returns (stream PartitionAssignmentMetadata);
+
+  rpc refresh(RpcConsumerMetadata) returns (stream PartitionAssignmentMetadata);
+
+  rpc listen(stream Heartbeat) returns (stream StreamgresMessage);
+
+  rpc ack(stream Acknowledgement) returns (stream HealthStatus);
+
+  rpc pulse(Heartbeat) returns (HealthStatus);
+
+  rpc leave(RpcConsumerMetadata) returns (HealthStatus);
+
+}
+
+message RpcConsumerMetadata {
+  string user = 1;
+  string topic = 2;
+  string consumer_group = 3;
+  string instance_id = 4;
+  int64 timeout = 5;
+}
+
+message PartitionAssignmentMetadata {
+  string topic = 1;
+  string consumer_group = 2;
+  string consumer_id = 3;
+  int32 partition = 4;
+  string session = 5;
+  string consumer_status = 6;
+}
+
+message Acknowledgement {
+  string session = 1;
+  int32 partition = 2;
+  int64 offset = 3;
+}
+
+message Heartbeat {
+  string session = 1;
+}
+
+message HealthStatus {
+  bool connected = 1;
+}
+
+message StreamgresMessage {
+  string key = 1;
+  bytes message = 2;
+  int32 partition = 3;
+  int64 offset = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message StreamingError {
+  int32 code = 1;
+  string message = 2;
+  string details = 3;
+}
