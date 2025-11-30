@@ -12,8 +12,8 @@ public class PartitionIngestionFactory {
 
         if(Objects.equals(type, "classic"))
             return new ClassicPartitionIngestion(topicName,partition,partitionMessageDtoList);
-        else if(Objects.equals(type, "distinct"))
-            return new DistinctPartitionIngestion(topicName,partition,partitionMessageDtoList);
+//        else if(Objects.equals(type, "distinct"))
+//            return new DistinctPartitionIngestion(topicName,partition,partitionMessageDtoList);
         else if(Objects.equals(type, "priority"))
             return new PriorityPartitionIngestion(topicName,partition,partitionMessageDtoList);
         else

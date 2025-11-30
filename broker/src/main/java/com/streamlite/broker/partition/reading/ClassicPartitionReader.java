@@ -23,7 +23,8 @@ public class ClassicPartitionReader extends BasePartitionReader {
             WITH boundary_time AS (
                 SELECT timestamp AS ts
                 FROM %s
-                WHERE msg_offset = %s
+                WHERE msg_offset >= %s
+                LIMIT 1
             )
             SELECT * FROM %s
             WHERE timestamp >= (SELECT ts FROM boundary_time)
