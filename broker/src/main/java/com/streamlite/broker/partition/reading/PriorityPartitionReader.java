@@ -17,11 +17,20 @@ public class PriorityPartitionReader extends BasePartitionReader {
 
         String partitionName = topicName + "_" + "partition" + "_" + partition;
         this.readerQuery = String.format("""
-            SELECT * FROM %s WHERE
-            msg_offset > %s
-            ORDER BY msg_offset ASC
+            WITH boundary_time AS (
+                SELECT timestamp AS ts
+                FROM %s
+                WHERE msg_offset >= %s
+                LIMIT 1
+            )
+            SELECT * FROM %s
+            WHERE timestamp >= (SELECT ts FROM boundary_time)
+            AND msg_offset > %s
+            ORDER BY priority DESC
             LIMIT %s;
             """,
+            partitionName,
+            offset,
             partitionName,
             offset,
             limit
@@ -37,6 +46,7 @@ public class PriorityPartitionReader extends BasePartitionReader {
                         .msgKey(new String(resultSet.getBinaryStream("msg_key").readAllBytes()))
                         .msgValue(new String(resultSet.getBinaryStream("msg_value").readAllBytes()))
                         .offset(resultSet.getLong("msg_offset"))
+                        .priority(resultSet.getInt("priority"))
                         .timestamp(resultSet.getTimestamp("timestamp").toInstant().atOffset(ZoneOffset.UTC))
                         .build();
             } catch (IOException e) {
