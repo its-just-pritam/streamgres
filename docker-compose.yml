@@ -29,5 +29,21 @@ services:
       datastore:
         condition: service_healthy
 
+  broker:
+    build: ./broker
+    container_name: streamgres-broker
+    environment:
+      DATASTORE_HOST: datastore
+      DATASTORE_PORT: 5432
+      DATASTORE_DB: streamlite_metadata
+      DATASTORE_USER: postgres
+      DATASTORE_PASSWORD: password
+    depends_on:
+      datastore:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+
 volumes:
    tsdb_data:
