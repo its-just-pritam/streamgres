@@ -264,8 +264,8 @@ public class ConsumerService {
             partitionReader = new ClassicPartitionReader(topicName, partition, offset, 10);
 //        else if(Objects.equals(type, "distinct"))
 //            partitionReader = new DistinctPartitionReader(topicName, partition, offset, 10);
-        else if(Objects.equals(type, "priority"))
-            partitionReader = new PriorityPartitionReader(topicName, partition, offset, 10);
+//        else if(Objects.equals(type, "priority"))
+//            partitionReader = new PriorityPartitionReader(topicName, partition, offset, 10);
 
         return partitionReader.read(jdbcTemplate);
     }

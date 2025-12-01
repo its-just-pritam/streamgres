@@ -91,8 +91,8 @@ public class TopicManagerService {
             partitionBuilder = new ClassicPartitionBuilder(topicName, count, retention);
 //        else if(Objects.equals(type, "distinct"))
 //            partitionBuilder = new DistinctPartitionBuilder(topicName, count, retention);
-        else if(Objects.equals(type, "priority"))
-            partitionBuilder = new PriorityPartitionBuilder(topicName, count, retention);
+//        else if(Objects.equals(type, "priority"))
+//            partitionBuilder = new PriorityPartitionBuilder(topicName, count, retention);
         else
             partitionBuilder = new NullPartitionBuilder();
 

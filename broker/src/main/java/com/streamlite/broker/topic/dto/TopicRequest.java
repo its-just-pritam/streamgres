@@ -26,7 +26,7 @@ public class TopicRequest {
 
     public void sanitize() {
 
-        List<String> typeCollection = List.of("classic", "priority");
+        List<String> typeCollection = List.of("classic");
         List<String> cleanupPolicyCollection = List.of("compact", "delete");
 
         environment = Optional.ofNullable(environment).orElse("dev");
