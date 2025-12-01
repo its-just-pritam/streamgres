@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "310a34c0-d589-4df1-ba57-f046dfd53381",
+		"name": "Streamgres",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36431553"
+	},
+	"item": [
+		{
+			"name": "Create Topic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partitions\": 4,\r\n    \"schemaDefinition\": \"{}\",\r\n    \"cleanupPolicy\": \"delete\",\r\n    \"type\": \"classic\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/{{user}}/topic/topic2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"{{user}}",
+						"topic",
+						"topic2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Consumer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/user/{{user}}/topic/topic2/consumer/default",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"{{user}}",
+						"topic",
+						"topic2",
+						"consumer",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Consumer",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partitions\": 3,\r\n    \"schemaDefinition\": \"{}\",\r\n    \"cleanupPolicy\": \"delete\",\r\n    \"type\": \"priority\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/{{user}}/topic/topic3/consumer/default",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"{{user}}",
+						"topic",
+						"topic3",
+						"consumer",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Consumer",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partitions\": 3,\r\n    \"schemaDefinition\": \"{}\",\r\n    \"cleanupPolicy\": \"delete\",\r\n    \"type\": \"priority\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/{{user}}/topic/topic1/consumer/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"{{user}}",
+						"topic",
+						"topic1",
+						"consumer",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Topic",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/user/{{user}}/topic/first_topic",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"{{user}}",
+						"topic",
+						"first_topic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Topics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/user/{{user}}/topic/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"{{user}}",
+						"topic",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Topic",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/user/{{user}}/topic/topic2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"{{user}}",
+						"topic",
+						"topic2"
+					],
+					"query": [
+						{
+							"key": "hard",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "user",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
