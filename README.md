@@ -193,6 +193,7 @@ Open TimescaleDB Visualizer:
 ```
 http://localhost:8081/
 ```
+![Data Visualizer](https://github.com/its-just-pritam/streamgres/blob/main/data_viewer.png)
 
 ---
 
